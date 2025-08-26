@@ -61,11 +61,11 @@ GET    /cars/:id/reviews
 
 ## QA PDFs
 - Bug report examples - [bag-reports.pdf](./bag-reports.pdf)
-- 
+ 
 - Test case examples - [test-cases.pdf](./test-cases.pdf)
-- 
+
 - Regression checklist - [Regression.pdf](./Regression.pdf)
-- 
+ 
 - XMind maps:
   - [Export list to CSV x_mind.pdf](./Export%20list%20to%20CSV%20x_mind.pdf)
   - [Comments and Mentions in a Document x_mind.pdf](./Comments%20and%20Mentions%20in%20a%20Document%20x_mind.pdf)
