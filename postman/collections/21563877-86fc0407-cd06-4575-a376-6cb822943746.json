@@ -1,0 +1,363 @@
+{
+	"info": {
+		"_postman_id": "21563877-86fc0407-cd06-4575-a376-6cb822943746",
+		"name": "Car_store - E2E stable (brand+car)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "02 - CREATE brand (random)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"(function(){function r(l){return Math.random().toString(36).slice(2,2+l).toUpperCase()}",
+							"const c=['Germany','Japan','USA','France','Spain','Italy','Poland','Netherlands','Norway','Sweden','Canada','Mexico','UK'];",
+							"pm.environment.set('randBrand','E2E_'+r(5));",
+							"pm.environment.set('randCountry',c[Math.floor(Math.random()*c.length)]);})();"
+						],
+						"id": "f75ee6e5-b080-4424-bad9-7d22f2e26fd8"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('201',()=>pm.response.to.have.status(201));",
+							"const d=pm.response.json();",
+							"pm.environment.set('brandId',d.id);",
+							"pm.environment.set('brandIdNum',Number(d.id));"
+						],
+						"id": "70d008b8-430f-4115-8701-85fa13a6204f"
+					}
+				}
+			],
+			"id": "21563877-7ec75676-3c32-455e-9c6f-671e333cf00d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"{{randBrand}}\",\n  \"country\": \"{{randCountry}}\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brands",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brands"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "03 - CREATE car (random, link to brand)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"if(!pm.environment.get('brandId')){pm.expect.fail('brandId empty - run step 02 first')}",
+							"(function(){function r(l){return Math.random().toString(36).slice(2,2+l).toUpperCase()}",
+							"pm.environment.set('randModel','M_'+r(4));",
+							"pm.environment.set('randVIN','E2E'+Date.now().toString().slice(-6)+r(5));})();"
+						],
+						"id": "51799843-dc60-4e4d-917b-040da8aa7d1c"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('201',()=>pm.response.to.have.status(201));",
+							"const d=pm.response.json();",
+							"pm.environment.set('carId',d.id);",
+							"pm.test('brandId matches',()=>pm.expect(Number(d.brandId)).to.eql(Number(pm.environment.get('brandIdNum'))));"
+						],
+						"id": "54dde29f-2a75-44bc-896c-afd0427708eb"
+					}
+				}
+			],
+			"id": "21563877-25528f49-ebb9-4c7e-aa23-eccdf6840d4e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"brandId\": \"{{brandIdNum}}\",\n  \"model\": \"{{randModel}}\",\n  \"year\": 2022,\n  \"price\": 25990,\n  \"mileage\": 15000,\n  \"fuel\": \"hybrid\",\n  \"transmission\": \"automatic\",\n  \"color\": \"grey\",\n  \"images\": [\n    \"https://placehold.co/600x400?text=E2E\"\n  ],\n  \"vin\": \"{{randVIN}}\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cars",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "04 - UPDATE car (PATCH)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"if(!pm.environment.get('carId')){pm.expect.fail('carId empty - run step 03 first')}",
+							"if(!pm.environment.get('brandIdNum')){pm.expect.fail('brandIdNum empty - run step 02 first')}"
+						],
+						"id": "563063e6-e927-4869-af7f-e3de77c2095d"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('200',()=>pm.response.to.have.status(200));",
+							"const d=pm.response.json();",
+							"pm.expect(d.price).to.eql(25500);",
+							"pm.expect(d.color).to.eql('black');"
+						],
+						"id": "5aedded1-3ca2-4564-9987-5c2e97eaad82"
+					}
+				}
+			],
+			"id": "21563877-3c199f17-52f9-44c5-b85d-1902cca0351a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"brandId\": \"{{brandIdNum}}\",\n  \"model\": \"{{randModel}}\",\n  \"year\": 2022,\n  \"price\": 25500,\n  \"color\": \"black\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cars/{{carId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cars",
+						"{{carId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "05 - GET car with relations",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"if(!pm.environment.get('carId')){pm.expect.fail('carId empty - run step 03 first')}"
+						],
+						"id": "d3db3e81-a597-4f90-906f-ea9e6214928e"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('200',()=>pm.response.to.have.status(200));",
+							"const d=pm.response.json();",
+							"pm.expect(d).to.have.property('brand');",
+							"pm.expect(Number(d.brand.id)).to.eql(Number(pm.environment.get('brandIdNum')));"
+						],
+						"id": "7e839db7-5d48-47eb-a361-84cbf6a12c52"
+					}
+				}
+			],
+			"id": "21563877-c2bf0fcd-eb42-424c-9332-a08ea6ab9075",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cars/{{carId}}?_expand=brand&_embed=reviews",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cars",
+						"{{carId}}"
+					],
+					"query": [
+						{
+							"key": "_expand",
+							"value": "brand"
+						},
+						{
+							"key": "_embed",
+							"value": "reviews"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "06 - GET brand cars includes our car",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"if(!pm.environment.get('brandId')){pm.expect.fail('brandId empty - run step 02 first')}",
+							"if(!pm.environment.get('carId')){pm.expect.fail('carId empty - run step 03 first')}"
+						],
+						"id": "1c74a692-e975-4fd3-852d-0ec36a6a4093"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('200',()=>pm.response.to.have.status(200));",
+							"const list=pm.response.json();",
+							"pm.expect(Array.isArray(list)).to.be.true;",
+							"const ids=list.map(c=>Number(c.id));",
+							"pm.expect(ids).to.include(Number(pm.environment.get('carId')));"
+						],
+						"id": "c4e6567f-ebf4-4367-8f7a-19a48468ff1a"
+					}
+				}
+			],
+			"id": "21563877-267c0e49-25b1-442e-8a99-f6c52dfd7ee7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brands/{{brandId}}/cars",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brands",
+						"{{brandId}}",
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "07 - DELETE car (cleanup)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('200',()=>pm.response.to.have.status(200));"
+						],
+						"id": "319dcf93-2483-45e1-b2bf-db3ec9ae305f"
+					}
+				}
+			],
+			"id": "21563877-c61aec3d-98ed-4dc1-bab2-716c2479723d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cars/{{carId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cars",
+						"{{carId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "08 - DELETE brand (cleanup)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('200',()=>pm.response.to.have.status(200));"
+						],
+						"id": "8778a583-339f-4867-83a1-c54f795c07f1"
+					}
+				}
+			],
+			"id": "21563877-4a846e2b-1579-4b1d-acc2-871e85431e0b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brands/{{brandId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brands",
+						"{{brandId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3001"
+		}
+	]
+}
