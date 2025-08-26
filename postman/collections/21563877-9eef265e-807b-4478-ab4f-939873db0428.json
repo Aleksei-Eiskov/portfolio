@@ -1,0 +1,686 @@
+{
+	"info": {
+		"_postman_id": "21563877-9eef265e-807b-4478-ab4f-939873db0428",
+		"name": "Car_store - CRUD collection",
+		"description": "Postman collection for Car_store - CRUD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health & Admin",
+			"item": [
+				{
+					"name": "GET - /health",
+					"id": "21563877-ddfa98a2-e26d-4c9f-b13c-90be38282f2d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/health",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST - /reset",
+					"id": "21563877-ab5782fd-14d4-4dfa-8ff2-11ad737e2636",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/reset",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"reset"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "21563877-11f24e4f-aaf6-4a1d-b736-b33f0bc714d6"
+		},
+		{
+			"name": "Cars",
+			"item": [
+				{
+					"name": "GET - /cars (list)",
+					"id": "21563877-6720ce83-f93c-482b-a5c0-80d9b28618f5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cars",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - /cars (filters)",
+					"id": "21563877-6f57b1fb-548e-4766-990a-0ffb62226e1c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cars?brandId={{brandId}}&price_gte=20000&price_lte=40000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars"
+							],
+							"query": [
+								{
+									"key": "brandId",
+									"value": "{{brandId}}"
+								},
+								{
+									"key": "price_gte",
+									"value": "20000"
+								},
+								{
+									"key": "price_lte",
+									"value": "40000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST - /cars (create)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a275eb2e-c407-460c-9ca6-2f2ea91ae256",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "21563877-82093539-373d-4303-86fa-c5dba5df0bd5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"brandId\": 4,\n  \"model\": \"Camry\",\n  \"year\": 2022,\n  \"price\": 25990,\n  \"mileage\": 15000,\n  \"fuel\": \"hybrid\",\n  \"transmission\": \"automatic\",\n  \"color\": \"grey\",\n  \"images\": [\n    \"https://placehold.co/600x400?text=Toyota+Camry\"\n  ],\n  \"vin\": \"JTNB11HK7N3000001\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cars",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - /cars/:id",
+					"id": "21563877-b62074f5-8f08-4d16-abae-75f4e6d193e8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cars/{{carId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars",
+								"{{carId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - /cars/:id with relations",
+					"id": "21563877-b64b9cf3-ac7e-4585-b68e-aabede1ac06f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cars/{{carId}}?_expand=brand&_embed=reviews",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars",
+								"{{carId}}"
+							],
+							"query": [
+								{
+									"key": "_expand",
+									"value": "brand"
+								},
+								{
+									"key": "_embed",
+									"value": "reviews"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH - /cars/:id (price)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "97e41bde-1a10-49e5-bbc3-f1008991635f",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "21563877-e31bfeec-c2f4-431e-b791-f66ddbe2cec0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 25500\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cars/{{carId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars",
+								"{{carId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT - /cars/:id (replace)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f0c0ce91-08b2-4342-9697-dc6f83fd651c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "21563877-95dd5104-9c75-4f0a-a67a-afea2f114092",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"brandId\": 1,\n  \"model\": \"3 Series\",\n  \"year\": 2020,\n  \"price\": 28999,\n  \"mileage\": 45000,\n  \"fuel\": \"petrol\",\n  \"transmission\": \"automatic\",\n  \"color\": \"black\",\n  \"images\": [\n    \"https://placehold.co/600x400?text=BMW+3+Series\"\n  ],\n  \"vin\": \"WBA8D9G57JNU12345\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cars/{{carId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars",
+								"{{carId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - /cars/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b16f03e3-7bbc-41e5-bec3-e0f01e91eb0e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "21563877-f969bbb3-0dd5-4a3f-80ed-56a17ef5479a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cars/5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "21563877-9cd9cfc0-566f-4f53-aaeb-9ab3511ca06d"
+		},
+		{
+			"name": "Brands",
+			"item": [
+				{
+					"name": "GET - /brands",
+					"id": "21563877-fc3acdd1-e4f9-4680-a8ea-af7abdf37aae",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/brands",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"brands"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - /brands/:id",
+					"id": "21563877-096fa253-874c-4fbe-9d86-c1cb396a5c27",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/brands/?id=5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"brands",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - /brands/:id/cars",
+					"id": "21563877-1bc5c401-5c56-4c54-8103-44eafa630948",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/brands/{{brandId}}/cars",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"brands",
+								"{{brandId}}",
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH - /brands/:id (update)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "68ce925d-c084-4cc3-b1ed-da88a31d92e6",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "21563877-335aa625-c685-46db-94b5-93dca1abdc13",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"country\": \"Germany\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/brands/{{brandId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"brands",
+								"{{brandId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT - /brands/:id (replace)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2c94d49f-44d9-464e-a989-58619e5b2fdf",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "21563877-fa3217f1-7de3-42ff-bd32-da33f3fbc92d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Audi\",\n  \"country\": \"Germany\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/brands/{{brandId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"brands",
+								"{{brandId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST - /brands (create)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c35cdcd9-efe8-4f45-8ec9-68c85b3673d9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "21563877-a25d617b-e909-4f71-9daa-3f9e067c4a7e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Pego\",\n  \"country\": \"France\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/brands",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"brands"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - /brand/:Id",
+					"id": "21563877-f0bec755-68ad-4053-9ace-775341600906",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/brands/7",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"brands",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "21563877-0d4b0e95-2391-4792-8f8e-2f7966ab4502"
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "GET - /cars/:id/reviews",
+					"id": "21563877-d1dc08f9-7f86-45f7-8619-eed8376be00c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cars/{{carId}}/reviews",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars",
+								"{{carId}}",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "21563877-c10e2498-aaf4-4b07-94a1-193174a17526"
+		},
+		{
+			"name": "Search & Pagination",
+			"item": [
+				{
+					"name": "GET - /cars search",
+					"id": "21563877-07be5b8e-a940-47b0-ba76-31a076051dcc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cars?q=tesla",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "tesla"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - /cars sort & page",
+					"id": "21563877-e7e315b0-f7cb-43b3-87c8-d386c40541ca",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cars?_sort=price&_order=asc&_page=1&_limit=3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars"
+							],
+							"query": [
+								{
+									"key": "_sort",
+									"value": "price"
+								},
+								{
+									"key": "_order",
+									"value": "asc"
+								},
+								{
+									"key": "_page",
+									"value": "1"
+								},
+								{
+									"key": "_limit",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "21563877-84abe409-042b-43f7-b963-2a362c946f90"
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3001"
+		},
+		{
+			"key": "carId",
+			"value": "1"
+		},
+		{
+			"key": "brandId",
+			"value": "4"
+		}
+	]
+}
