@@ -26,7 +26,6 @@ Quick preview without Postman:
 npm install
 npm start
 ```
-# service is available at http://localhost:3001
 
 ## **Docker**
 docker build -t car_store .
