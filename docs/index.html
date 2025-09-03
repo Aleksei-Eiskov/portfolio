@@ -67,6 +67,11 @@
     code { background: rgba(255,255,255,.05); border: 1px solid var(--line); padding: 2px 6px; border-radius: 999px; }
     .pill { font-size: 12px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.06); }
 
+    /* Dashboards embed */
+    .iframewrap { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+    .dashboard-frame { width: 100%; height: 820px; border: 0; display: block; background: #0f1731; }
+    @media (max-width: 640px) { .dashboard-frame { height: 680px; } }
+
     /* Footer */
     footer { margin-top: 38px; color: var(--muted); font-size: 14px; }
     .tip code { border-radius: 8px; }
@@ -84,12 +89,14 @@
           <a class="btn" href="../postman/collections/21563877-9eef265e-807b-4478-ab4f-939873db0428.json">Postman - CRUD collection</a>
           <a class="btn secondary" href="./car_store_collection_overview.md">Markdown overview - E2E</a>
           <a class="btn secondary" href="./car_store_crud_overview.md">Markdown overview - CRUD</a>
+          <a class="btn" href="https://aleksei-eiskov.github.io/AlekseiEiskov/" target="_blank" rel="noopener">QA dashboards</a>
         </div>
         <nav class="localnav" aria-label="In page">
           <a class="chip" href="#pdfs">PDF examples</a>
           <a class="chip" href="#api">API collections</a>
           <a class="chip" href="#e2e">E2E endpoints</a>
           <a class="chip" href="#crud">CRUD endpoints</a>
+          <a class="chip" href="#dashboards">Dashboards</a>
         </nav>
       </div>
     </header>
@@ -179,9 +186,51 @@
       </div>
     </section>
 
+    <section id="dashboards" aria-labelledby="dashboards-h2">
+      <h2 id="dashboards-h2">QA dashboards - mock data</h2>
+      <p class="muted">Интерактивные графики ниже грузятся из отдельного репозитория - без NDA и с анонимными моками</p>
+      <div class="iframewrap">
+        <iframe
+          class="dashboard-frame"
+          src="https://aleksei-eiskov.github.io/AlekseiEiskov/"
+          title="QA Impact Dashboard - Mock data"
+          loading="lazy"
+          referrerpolicy="no-referrer"
+        ></iframe>
+      </div>
+      <p class="muted" style="margin-top:10px">
+        Нужен полноэкранный режим - нажми кнопку вверху или
+        <a href="https://aleksei-eiskov.github.io/AlekseiEiskov/" target="_blank" rel="noopener">открой в новой вкладке</a>.
+      </p>
+    </section>
+
     <footer>
       <p class="tip">Quick start - <code>npm install</code> then <code>npm start</code> or <code>docker compose up --build</code>. Sources - <a href="https://github.com/Aleksei-Eiskov/car_store" target="_blank" rel="noopener">car_store (GitHub)</a>.</p>
     </footer>
   </div>
+
+  <script>
+    // Auto-resize the embedded dashboards frame, same origin so allowed
+    function adjustDashboardHeight() {
+      const frame = document.querySelector('.dashboard-frame');
+      if (!frame) return;
+      try {
+        const doc = frame.contentDocument || frame.contentWindow.document;
+        if (!doc) return;
+        const h = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight, 680);
+        frame.style.height = h + 'px';
+      } catch (e) {
+        // ignore if cannot access
+      }
+    }
+    window.addEventListener('load', () => {
+      const frame = document.querySelector('.dashboard-frame');
+      if (!frame) return;
+      frame.addEventListener('load', () => {
+        adjustDashboardHeight();
+        setInterval(adjustDashboardHeight, 1500);
+      });
+    });
+  </script>
 </body>
 </html>
