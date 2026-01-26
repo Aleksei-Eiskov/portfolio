@@ -37,7 +37,7 @@
 
     .container { max-width: 1100px; margin: 0 auto; padding: 28px 20px 80px; }
 
-    /* Hero */
+    /* Header / Hero */
     .hero {
       display: grid;
       grid-template-columns: 1fr;
@@ -168,6 +168,7 @@
     table { width: 100%; border-collapse: collapse; background: #0f1731; min-width: 720px; }
     th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); }
     thead th { background: #111c3b; position: sticky; top: 0; z-index: 1; }
+
     code { background: rgba(255,255,255,.05); border: 1px solid var(--line); padding: 2px 6px; border-radius: 999px; }
 
     .pill {
@@ -181,7 +182,7 @@
       white-space: nowrap;
     }
 
-    /* Dashboards */
+    /* Dashboards (no forced embed by default) */
     details {
       border: 1px solid var(--line);
       border-radius: 16px;
@@ -197,15 +198,27 @@
     }
     summary::-webkit-details-marker { display: none; }
     .details-body { margin-top: 12px; color: var(--muted); }
-    .iframewrap { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; margin-top: 12px; }
-    .dashboard-frame { width: 100%; height: 980px; border: 0; display: block; background: #0f1731; }
+
+    .iframewrap {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 12px;
+      background: #0f1731;
+    }
+    .dashboard-frame {
+      width: 100%;
+      height: 980px;
+      border: 0;
+      display: block;
+      background: #0f1731;
+    }
     @media (max-width: 640px) { .dashboard-frame { height: 860px; } }
 
     /* Footer */
     footer { margin-top: 40px; color: var(--muted); font-size: 14px; }
     .divider { margin: 22px 0; border: none; border-top: 1px solid var(--line); opacity: .7; }
 
-    /* Small helper row */
     .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
   </style>
 </head>
@@ -216,15 +229,15 @@
       <div>
         <h1 class="title">QA Engineer - Manual, API, Backend and UI Testing</h1>
         <p class="subtitle">
-          Recruiter-first QA portfolio for the German market (English). Focused on API testing, backend validation and UI regression.
-          Practical QA artifacts below: test cases, regression checklists, bug reports, and Postman collections.
+          Recruiter-first QA portfolio (English). Focused on API testing, backend validation and UI regression.
+          Below are practical QA artifacts: test cases, regression checklists, bug reports, and Postman collections.
         </p>
 
         <ul class="highlights" aria-label="Key strengths">
-          <li>API testing - Postman collections, chaining via variables, validations, negative checks, cleanup</li>
+          <li>API testing - Postman, chained variables, validations, negative checks, cleanup</li>
           <li>Backend testing - logs and data checks, reproducibility, root-cause oriented analysis</li>
-          <li>UI testing - core user flows, typical breakpoints, regression risks, edge cases</li>
-          <li>Test design - structured test cases and requirement-oriented scenarios</li>
+          <li>UI testing - core user flows, regression risks, edge cases</li>
+          <li>Test design - structured cases and requirement-oriented scenarios</li>
           <li>QA impact tracking - dashboards with anonymized mock data (no NDA)</li>
         </ul>
 
@@ -297,7 +310,7 @@
       </div>
 
       <p class="muted small" style="margin-top:12px">
-        All links are relative to this folder to avoid GitHub Pages 404 issues.
+        Links are relative to this folder to avoid GitHub Pages path issues.
       </p>
     </section>
 
@@ -338,7 +351,7 @@
       </div>
 
       <p class="muted small" style="margin-top:12px">
-        Note: bug report file name is currently <code>bag-reports.pdf</code> (as in repo). Rename later if you want, then update the link.
+        Note: bug report file name in repo is <code>bag-reports.pdf</code>.
       </p>
     </section>
 
