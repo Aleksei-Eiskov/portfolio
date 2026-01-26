@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aleksei Eiskov - QA portfolio - QA docs and Car_store API Demo</title>
-  <meta name="description" content="Public QA portfolio by Aleksei Eiskov - Car_store API demo, E2E and CRUD Postman collections, and QA documents in PDF" />
+  <title>Aleksei Eiskov - QA Engineer portfolio (Manual, API and Backend)</title>
+  <meta name="description" content="QA portfolio by Aleksei Eiskov: recruiter-first QA artifacts (regression checklist, test cases, bug reports), Car_store API demo (Postman E2E and CRUD), and QA impact dashboards (mock data)." />
   <style>
     :root {
       --bg: #0b1324;
@@ -15,7 +15,7 @@
       --muted: #9fb0d0;
       --accent: #8ab4ff;
       --accent-2: #66d4a2;
-      --shadow: 0 10px 20px rgba(0,0,0,.25), 0 6px 6px rgba(0,0,0,.18);
+      --shadow: 0 10px 20px rgba(0,0,0,.22), 0 6px 6px rgba(0,0,0,.16);
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; }
@@ -23,49 +23,161 @@
       margin: 0;
       font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
-      background: radial-gradient(1200px 600px at 10% -10%, #25407a 0%, rgba(37,64,122,0) 60%),
-                  radial-gradient(1000px 600px at 110% 10%, #1d6a7a 0%, rgba(29,106,122,0) 55%),
-                  var(--bg);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #25407a 0%, rgba(37,64,122,0) 60%),
+        radial-gradient(1000px 600px at 110% 10%, #1d6a7a 0%, rgba(29,106,122,0) 55%),
+        var(--bg);
     }
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
     .container { max-width: 1100px; margin: 0 auto; padding: 28px 20px 80px; }
 
-    /* Header */
-    .hero { display: grid; grid-template-columns: 1fr; gap: 16px; padding: 24px; border-radius: 18px; background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); border: 1px solid var(--line); box-shadow: var(--shadow); }
-    .title { margin: 0; font-size: 28px; letter-spacing: .3px; }
-    .subtitle { margin: 6px 0 0; color: var(--muted); }
-    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 12px; border: 1px solid var(--line); background: #0f1731; color: var(--text); text-decoration: none; font-weight: 600; box-shadow: var(--shadow); }
+    /* Header / Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      padding: 22px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .title { margin: 0; font-size: 28px; letter-spacing: .2px; }
+    .subtitle { margin: 8px 0 0; color: var(--muted); }
+    .highlights {
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+    }
+    .highlights li::before { content: "- "; color: var(--accent-2); }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #0f1731;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+    }
     .btn:hover { background: #131e42; text-decoration: none; }
     .btn.secondary { background: transparent; color: var(--accent); }
+    .btn.ghost { background: rgba(255,255,255,.03); }
+    .note {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
 
     /* Local nav */
-    .localnav { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0 0; }
-    .chip { font-size: 13px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.03); color: var(--muted); }
+    .localnav { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 0; }
+    .chip {
+      font-size: 13px;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+    }
+    .chip:hover { text-decoration: none; border-color: rgba(138,180,255,.55); }
 
     /* Sections */
-    section { margin-top: 32px; }
-    h2 { margin: 0 0 14px; font-size: 22px; }
-    p.muted { color: var(--muted); margin: 0 0 18px; }
+    section { margin-top: 34px; }
+    h2 { margin: 0 0 12px; font-size: 22px; }
+    p.muted { color: var(--muted); margin: 0 0 16px; }
+    .small { font-size: 14px; }
 
-    /* Cards grid for PDFs */
+    /* Cards grid */
     .grid { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 14px; }
     @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
     @media (min-width: 980px) { .grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
-    .card { position: relative; border: 1px solid var(--line); background: var(--card); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); transition: transform .15s ease; }
+
+    .card {
+      position: relative;
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+      transition: transform .15s ease;
+    }
     .card:hover { transform: translateY(-2px); }
     .card h3 { margin: 0 0 8px; font-size: 18px; }
     .card p { margin: 0; color: var(--muted); }
-    .card .tag { position: absolute; top: 12px; right: 12px; font-size: 12px; border: 1px solid var(--line); padding: 2px 8px; border-radius: 999px; color: var(--accent-2); background: rgba(102,212,162,.08); }
+
+    .tag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 12px;
+      border: 1px solid var(--line);
+      padding: 2px 8px;
+      border-radius: 999px;
+      color: var(--accent-2);
+      background: rgba(102,212,162,.08);
+    }
+    .tag.blue {
+      color: var(--accent);
+      background: rgba(138,180,255,.08);
+    }
+    .tag.gray {
+      color: var(--muted);
+      background: rgba(255,255,255,.04);
+    }
+
+    .card-actions {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .link:hover { background: rgba(255,255,255,.06); text-decoration: none; }
+    .link.secondary { background: transparent; color: var(--accent); }
 
     /* Tables */
-    .tablewrap { overflow: auto; border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); }
-    table { width: 100%; border-collapse: collapse; background: #0f1731; min-width: 680px; }
+    .tablewrap {
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
+    table { width: 100%; border-collapse: collapse; background: #0f1731; min-width: 720px; }
     th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); }
     thead th { background: #111c3b; position: sticky; top: 0; z-index: 1; }
     code { background: rgba(255,255,255,.05); border: 1px solid var(--line); padding: 2px 6px; border-radius: 999px; }
-    .pill { font-size: 12px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.06); }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      white-space: nowrap;
+    }
 
     /* Dashboards embed */
     .iframewrap { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
@@ -73,76 +185,198 @@
     @media (max-width: 640px) { .dashboard-frame { height: 680px; } }
 
     /* Footer */
-    footer { margin-top: 38px; color: var(--muted); font-size: 14px; }
+    footer { margin-top: 40px; color: var(--muted); font-size: 14px; }
+    .tip { margin: 0; }
     .tip code { border-radius: 8px; }
+    .divider { margin: 22px 0; border: none; border-top: 1px solid var(--line); opacity: .7; }
   </style>
 </head>
 <body>
   <div class="container">
     <header class="hero">
       <div>
-        <h1 class="title">Aleksei Eiskov - QA portfolio</h1>
-        <p class="subtitle">API demo for a json-server car shop plus real QA documents in PDF</p>
-        <div class="actions">
+        <h1 class="title">QA Engineer - Manual, API and Backend Testing</h1>
+        <p class="subtitle">
+          3+ years of experience in B2B and complex systems. Focused on API testing, test design, regression planning and clear bug reporting. Based in Germany.
+        </p>
+
+        <ul class="highlights" aria-label="Key strengths">
+          <li>API testing in Postman - chained requests, negative checks and data cleanup</li>
+          <li>Test design - structured test cases, pairwise coverage and requirement-oriented scenarios</li>
+          <li>Regression planning - risk-based checklists and practical smoke vs extended scope</li>
+          <li>Defect reporting - reproducible steps, clear expected vs actual, logs and context for developers</li>
+          <li>QA impact tracking - dashboards with anonymized mock data (no NDA)</li>
+        </ul>
+
+        <div class="actions" aria-label="Primary links">
           <a class="btn" href="https://github.com/Aleksei-Eiskov/qa-portfolio-aleksei" target="_blank" rel="noopener">Repository</a>
-          <a class="btn" href="../postman/collections/21563877-86fc0407-cd06-4575-a376-6cb822943746.json">Postman - E2E stable</a>
-          <a class="btn" href="../postman/collections/21563877-9eef265e-807b-4478-ab4f-939873db0428.json">Postman - CRUD collection</a>
-          <a class="btn secondary" href="./car_store_collection_overview.md">Markdown overview - E2E</a>
-          <a class="btn secondary" href="./car_store_crud_overview.md">Markdown overview - CRUD</a>
+          <a class="btn" href="./pdfs/CV%20QA_Engineer%20Aleksei%20Eiskov.pdf" target="_blank" rel="noopener">CV PDF</a>
+          <a class="btn secondary" href="https://www.linkedin.com/in/aleksei-eiskov" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn ghost" href="mailto:AlekseiEiskov@gmail.com">Email</a>
           <a class="btn" href="https://aleksei-eiskov.github.io/AlekseiEiskov/" target="_blank" rel="noopener">QA dashboards</a>
         </div>
+
+        <p class="note">
+          Recruiter tip - start with the "Start here" section below. It contains the 3 most representative QA samples.
+        </p>
+
         <nav class="localnav" aria-label="In page">
-          <a class="chip" href="#pdfs">PDF examples</a>
-          <a class="chip" href="#api">API collections</a>
+          <a class="chip" href="#start-here">Start here</a>
+          <a class="chip" href="#pdfs">QA documents</a>
+          <a class="chip" href="#api">API demo</a>
           <a class="chip" href="#e2e">E2E endpoints</a>
           <a class="chip" href="#crud">CRUD endpoints</a>
           <a class="chip" href="#dashboards">Dashboards</a>
+          <a class="chip" href="#quickstart">Quick start</a>
         </nav>
       </div>
     </header>
 
-    <section id="pdfs" aria-labelledby="pdfs-h2">
-      <h2 id="pdfs-h2">QA documents - PDF</h2>
-      <p class="muted">First look - concrete QA samples I would show to a recruiter</p>
+    <section id="start-here" aria-labelledby="start-here-h2">
+      <h2 id="start-here-h2">Start here - key QA artifacts</h2>
+      <p class="muted">If you only have 2 minutes, these examples best represent how I work as a QA engineer.</p>
+
       <div class="grid">
-        <a class="card" href="./pdfs/bag-reports.pdf">
-          <span class="tag">PDF</span>
-          <h3>Bug report examples</h3>
-          <p>Realistic defects - short, clear and ready for Jira</p>
-        </a>
-        <a class="card" href="./pdfs/test-cases.pdf">
-          <span class="tag">PDF</span>
-          <h3>Test case examples</h3>
-          <p>Login and promo flows with preconditions and steps</p>
-        </a>
-        <a class="card" href="./pdfs/Regression.pdf">
+        <div class="card">
           <span class="tag">PDF</span>
           <h3>Regression checklist</h3>
-          <p>PLP and PDP smoke and regression coverage</p>
-        </a>
-        <a class="card" href="./pdfs/Export%20list%20to%20CSV%20x_mind.pdf">
+          <p>
+            Risk-based coverage for PLP and PDP. Shows how I prioritize scope (smoke vs regression),
+            focus on typical breakpoints and validate key user flows.
+          </p>
+          <div class="card-actions">
+            <a class="link" href="./pdfs/Regression.pdf">Open PDF</a>
+            <a class="link secondary" href="#pdfs">See all QA docs</a>
+          </div>
+        </div>
+
+        <div class="card">
           <span class="tag">PDF</span>
-          <h3>XMind - export to CSV</h3>
-          <p>Mind map of user actions and edge cases</p>
-        </a>
-        <a class="card" href="./pdfs/Comments%20and%20Mentions%20in%20a%20Document%20x_mind.pdf">
-          <span class="tag">PDF</span>
-          <h3>XMind - comments and mentions</h3>
-          <p>Commenting, mentions and notification scenarios</p>
-        </a>
+          <h3>Test case examples</h3>
+          <p>
+            Structured test cases for login and promo flows with preconditions, test data,
+            steps, and expected results. Includes pairwise coverage.
+          </p>
+          <div class="card-actions">
+            <a class="link" href="./pdfs/test-cases.pdf">Open PDF</a>
+            <a class="link secondary" href="#pdfs">See all QA docs</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="tag blue">Postman</span>
+          <h3>API E2E flow</h3>
+          <p>
+            End-to-end API scenario with chained variables, basic negative checks and full cleanup.
+            Demonstrates backend-oriented thinking and stable test data handling.
+          </p>
+          <div class="card-actions">
+            <a class="link" href="../postman/collections/21563877-86fc0407-cd06-4575-a376-6cb822943746.json">Open collection</a>
+            <a class="link secondary" href="#api">API demo details</a>
+          </div>
+        </div>
       </div>
     </section>
 
+    <section id="pdfs" aria-labelledby="pdfs-h2">
+      <h2 id="pdfs-h2">QA documents - selected examples</h2>
+      <p class="muted">Concrete QA artifacts (no NDA): bug reports, test cases, regression planning and requirement mind maps.</p>
+
+      <div class="grid">
+        <a class="card" href="./pdfs/bug-reports.pdf">
+          <span class="tag">PDF</span>
+          <h3>Bug report examples</h3>
+          <p>Clear, reproducible defect reports ready for Jira: steps, expected vs actual, environment, and context.</p>
+        </a>
+
+        <a class="card" href="./pdfs/test-cases.pdf">
+          <span class="tag">PDF</span>
+          <h3>Test case examples</h3>
+          <p>Login and promo flows with preconditions, test data, steps and expected results.</p>
+        </a>
+
+        <a class="card" href="./pdfs/Regression.pdf">
+          <span class="tag">PDF</span>
+          <h3>Regression checklist</h3>
+          <p>PLP and PDP smoke and regression coverage, edge cases and typical breakpoints.</p>
+        </a>
+
+        <a class="card" href="./pdfs/Export%20list%20to%20CSV%20x_mind.pdf">
+          <span class="tag gray">XMind</span>
+          <h3>Mind map - export to CSV</h3>
+          <p>User actions, validations and edge cases for an export flow.</p>
+        </a>
+
+        <a class="card" href="./pdfs/Comments%20and%20Mentions%20in%20a%20Document%20x_mind.pdf">
+          <span class="tag gray">XMind</span>
+          <h3>Mind map - comments and mentions</h3>
+          <p>Commenting, mentions, permissions and notification scenarios.</p>
+        </a>
+      </div>
+
+      <p class="muted small" style="margin-top:12px">
+        Note: filenames and content are anonymized. No proprietary data.
+      </p>
+    </section>
+
     <section id="api" aria-labelledby="api-h2">
-      <h2 id="api-h2">API collections</h2>
-      <p class="muted">Two Postman collections - one for a stable E2E flow and one for CRUD exploration</p>
+      <h2 id="api-h2">API demo - Car_store (json-server)</h2>
+      <p class="muted">
+        Two Postman collections: one for a stable E2E flow and one for CRUD exploration. The demo focuses on test design, chaining, validations and cleanup.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <span class="tag blue">Postman</span>
+          <h3>E2E stable collection</h3>
+          <p>
+            A stable scenario that creates a brand and a car, updates data, validates relations, and performs cleanup.
+            Suitable as a regression-style API check.
+          </p>
+          <div class="card-actions">
+            <a class="link" href="../postman/collections/21563877-86fc0407-cd06-4575-a376-6cb822943746.json">Open collection (JSON)</a>
+            <a class="link secondary" href="./car_store_collection_overview.md">Open Markdown overview</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="tag blue">Postman</span>
+          <h3>CRUD exploration collection</h3>
+          <p>
+            CRUD checks across cars and brands plus search, filtering, sorting and pagination.
+            Useful for exploratory API testing and coverage expansion.
+          </p>
+          <div class="card-actions">
+            <a class="link" href="../postman/collections/21563877-9eef265e-807b-4478-ab4f-939873db0428.json">Open collection (JSON)</a>
+            <a class="link secondary" href="./car_store_crud_overview.md">Open Markdown overview</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="tag gray">GitHub</span>
+          <h3>Demo sources</h3>
+          <p>
+            Service sources, quick start instructions and environment setup.
+          </p>
+          <div class="card-actions">
+            <a class="link" href="https://github.com/Aleksei-Eiskov/car_store" target="_blank" rel="noopener">Open car_store repo</a>
+            <a class="link secondary" href="#quickstart">Quick start</a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="e2e" aria-labelledby="e2e-h2">
       <h2 id="e2e-h2">E2E stable - endpoints</h2>
+      <p class="muted">
+        Demonstrates request chaining via variables (<code>{{carId}}</code>, <code>{{brandId}}</code>),
+        relation checks and full cleanup after execution.
+      </p>
       <div class="tablewrap">
-        <table role="table">
-          <thead><tr><th>Method</th><th>Path</th><th>Name</th></tr></thead>
+        <table role="table" aria-label="E2E endpoints">
+          <thead>
+            <tr><th>Method</th><th>Path</th><th>Name</th></tr>
+          </thead>
           <tbody>
             <tr><td><span class="pill">POST</span></td><td><code>/brands</code></td><td>CREATE brand</td></tr>
             <tr><td><span class="pill">POST</span></td><td><code>/cars</code></td><td>CREATE car linked to brand</td></tr>
@@ -158,29 +392,37 @@
 
     <section id="crud" aria-labelledby="crud-h2">
       <h2 id="crud-h2">CRUD collection - endpoints</h2>
+      <p class="muted">
+        Demonstrates basic CRUD plus search, filters, sorting and pagination. Intended for exploratory API testing and coverage expansion.
+      </p>
       <div class="tablewrap">
-        <table role="table">
-          <thead><tr><th>Group</th><th>Method</th><th>Path</th><th>Name</th></tr></thead>
+        <table role="table" aria-label="CRUD endpoints">
+          <thead>
+            <tr><th>Group</th><th>Method</th><th>Path</th><th>Name</th></tr>
+          </thead>
           <tbody>
-            <tr><td>Health and Admin</td><td class="pill">GET</td><td><code>/health</code></td><td>Healthcheck</td></tr>
-            <tr><td>Health and Admin</td><td class="pill">POST</td><td><code>/reset</code></td><td>Reset db</td></tr>
-            <tr><td>Cars</td><td class="pill">GET</td><td><code>/cars</code></td><td>List</td></tr>
-            <tr><td>Cars</td><td class="pill">GET</td><td><code>/cars?brandId={{brandId}}&price_gte=20000&price_lte=40000</code></td><td>Filters</td></tr>
-            <tr><td>Cars</td><td class="pill">POST</td><td><code>/cars</code></td><td>Create</td></tr>
-            <tr><td>Cars</td><td class="pill">GET</td><td><code>/cars/{{carId}}</code></td><td>Get by id</td></tr>
-            <tr><td>Cars</td><td class="pill">GET</td><td><code>/cars/{{carId}}?_expand=brand&_embed=reviews</code></td><td>Get with relations</td></tr>
-            <tr><td>Cars</td><td class="pill">PATCH</td><td><code>/cars/{{carId}}</code></td><td>Update price</td></tr>
-            <tr><td>Cars</td><td class="pill">PUT</td><td><code>/cars/{{carId}}</code></td><td>Replace</td></tr>
-            <tr><td>Cars</td><td class="pill">DELETE</td><td><code>/cars/5</code></td><td>Delete by id</td></tr>
-            <tr><td>Brands</td><td class="pill">GET</td><td><code>/brands</code></td><td>List</td></tr>
-            <tr><td>Brands</td><td class="pill">GET</td><td><code>/brands/?id=5</code></td><td>Get by id</td></tr>
-            <tr><td>Brands</td><td class="pill">GET</td><td><code>/brands/{{brandId}}/cars</code></td><td>Cars by brand</td></tr>
-            <tr><td>Brands</td><td class="pill">PATCH</td><td><code>/brands/{{brandId}}</code></td><td>Update</td></tr>
-            <tr><td>Brands</td><td class="pill">PUT</td><td><code>/brands/{{brandId}}</code></td><td>Replace</td></tr>
-            <tr><td>Brands</td><td class="pill">POST</td><td><code>/brands</code></td><td>Create</td></tr>
-            <tr><td>Brands</td><td class="pill">DELETE</td><td><code>/brands/7</code></td><td>Delete by id</td></tr>
-            <tr><td>Search and Pagination</td><td class="pill">GET</td><td><code>/cars?q=tesla</code></td><td>Search</td></tr>
-            <tr><td>Search and Pagination</td><td class="pill">GET</td><td><code>/cars?_sort=price&_order=asc&_page=1&_limit=3</code></td><td>Sorting and pagination</td></tr>
+            <tr><td>Health and Admin</td><td><span class="pill">GET</span></td><td><code>/health</code></td><td>Healthcheck</td></tr>
+            <tr><td>Health and Admin</td><td><span class="pill">POST</span></td><td><code>/reset</code></td><td>Reset db</td></tr>
+
+            <tr><td>Cars</td><td><span class="pill">GET</span></td><td><code>/cars</code></td><td>List</td></tr>
+            <tr><td>Cars</td><td><span class="pill">GET</span></td><td><code>/cars?brandId={{brandId}}&price_gte=20000&price_lte=40000</code></td><td>Filters</td></tr>
+            <tr><td>Cars</td><td><span class="pill">POST</span></td><td><code>/cars</code></td><td>Create</td></tr>
+            <tr><td>Cars</td><td><span class="pill">GET</span></td><td><code>/cars/{{carId}}</code></td><td>Get by id</td></tr>
+            <tr><td>Cars</td><td><span class="pill">GET</span></td><td><code>/cars/{{carId}}?_expand=brand&_embed=reviews</code></td><td>Get with relations</td></tr>
+            <tr><td>Cars</td><td><span class="pill">PATCH</span></td><td><code>/cars/{{carId}}</code></td><td>Update price</td></tr>
+            <tr><td>Cars</td><td><span class="pill">PUT</span></td><td><code>/cars/{{carId}}</code></td><td>Replace</td></tr>
+            <tr><td>Cars</td><td><span class="pill">DELETE</span></td><td><code>/cars/{{carId}}</code></td><td>Delete by id</td></tr>
+
+            <tr><td>Brands</td><td><span class="pill">GET</span></td><td><code>/brands</code></td><td>List</td></tr>
+            <tr><td>Brands</td><td><span class="pill">GET</span></td><td><code>/brands/?id={{brandId}}</code></td><td>Get by id</td></tr>
+            <tr><td>Brands</td><td><span class="pill">GET</span></td><td><code>/brands/{{brandId}}/cars</code></td><td>Cars by brand</td></tr>
+            <tr><td>Brands</td><td><span class="pill">PATCH</span></td><td><code>/brands/{{brandId}}</code></td><td>Update</td></tr>
+            <tr><td>Brands</td><td><span class="pill">PUT</span></td><td><code>/brands/{{brandId}}</code></td><td>Replace</td></tr>
+            <tr><td>Brands</td><td><span class="pill">POST</span></td><td><code>/brands</code></td><td>Create</td></tr>
+            <tr><td>Brands</td><td><span class="pill">DELETE</span></td><td><code>/brands/{{brandId}}</code></td><td>Delete by id</td></tr>
+
+            <tr><td>Search and Pagination</td><td><span class="pill">GET</span></td><td><code>/cars?q=tesla</code></td><td>Search</td></tr>
+            <tr><td>Search and Pagination</td><td><span class="pill">GET</span></td><td><code>/cars?_sort=price&_order=asc&_page=1&_limit=3</code></td><td>Sorting and pagination</td></tr>
           </tbody>
         </table>
       </div>
@@ -188,7 +430,11 @@
 
     <section id="dashboards" aria-labelledby="dashboards-h2">
       <h2 id="dashboards-h2">QA dashboards - mock data</h2>
-      <p class="muted">Interactive charts below load from a separate repository - no NDA data, anonymized mocks.</p>
+      <p class="muted">
+        Interactive charts load from a separate repository. The dashboard illustrates how I track QA impact:
+        regression duration, defect resolution time and coverage trends. Data is anonymized and based on mock examples (no NDA).
+      </p>
+
       <div class="iframewrap">
         <iframe
           class="dashboard-frame"
@@ -198,34 +444,79 @@
           referrerpolicy="no-referrer"
         ></iframe>
       </div>
-      <p class="muted" style="margin-top:10px">
-        Need fullscreen - click the button above or
-        <a href="https://aleksei-eiskov.github.io/AlekseiEiskov/" target="_blank" rel="noopener">open in a new tab</a>.
+
+      <p class="muted small" style="margin-top:10px">
+        Need fullscreen - <a href="https://aleksei-eiskov.github.io/AlekseiEiskov/" target="_blank" rel="noopener">open dashboards in a new tab</a>.
+      </p>
+    </section>
+
+    <section id="quickstart" aria-labelledby="quickstart-h2">
+      <h2 id="quickstart-h2">Quick start</h2>
+      <p class="muted">
+        To run the demo locally, use the commands below. Sources are in the <a href="https://github.com/Aleksei-Eiskov/car_store" target="_blank" rel="noopener">car_store repository</a>.
+      </p>
+
+      <div class="tablewrap" aria-label="Quick start commands">
+        <table role="table">
+          <thead>
+            <tr><th>Option</th><th>Commands</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Node</td>
+              <td>
+                <code>npm install</code>
+                <span class="pill">then</span>
+                <code>npm start</code>
+              </td>
+              <td>Starts json-server demo locally</td>
+            </tr>
+            <tr>
+              <td>Docker</td>
+              <td><code>docker compose up --build</code></td>
+              <td>Runs demo in containers</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="muted small" style="margin-top:12px">
+        Postman collections - import JSON, set the base URL (local or hosted), then run requests in order.
       </p>
     </section>
 
     <footer>
-      <p class="tip">Quick start - <code>npm install</code> then <code>npm start</code> or <code>docker compose up --build</code>. Sources - <a href="https://github.com/Aleksei-Eiskov/car_store" target="_blank" rel="noopener">car_store (GitHub)</a>.</p>
+      <hr class="divider" />
+      <p class="tip">
+        Contacts - <a href="mailto:AlekseiEiskov@gmail.com">AlekseiEiskov@gmail.com</a> - Lippstadt, Germany.
+      </p>
+      <p class="tip" style="margin-top:8px">
+        Main repository - <a href="https://github.com/Aleksei-Eiskov/qa-portfolio-aleksei" target="_blank" rel="noopener">qa-portfolio-aleksei</a>.
+      </p>
     </footer>
   </div>
 
   <script>
-    // Auto-resize the embedded dashboards frame, same origin so allowed
+    // Attempt to auto-resize the embedded dashboards frame.
+    // If cross-origin restrictions apply, it will gracefully do nothing.
     function adjustDashboardHeight() {
       const frame = document.querySelector('.dashboard-frame');
       if (!frame) return;
+
       try {
         const doc = frame.contentDocument || frame.contentWindow.document;
         if (!doc) return;
         const h = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight, 680);
         frame.style.height = h + 'px';
       } catch (e) {
-        // ignore if cannot access
+        // ignore
       }
     }
+
     window.addEventListener('load', () => {
       const frame = document.querySelector('.dashboard-frame');
       if (!frame) return;
+
       frame.addEventListener('load', () => {
         adjustDashboardHeight();
         setInterval(adjustDashboardHeight, 1500);
