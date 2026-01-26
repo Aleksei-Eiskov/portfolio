@@ -6,7 +6,7 @@
 - sample QA PDFs: bug reports, test cases, a regression checklist, and xmind maps
 
 ## **Live docs**
-- GitHub Pages - https://aleksei-eiskov.github.io/qa-portfolio-aleksei/
+- GitHub Pages - [https://aleksei-eiskov.github.io/qa-portfolio-aleksei/](https://aleksei-eiskov.github.io/portfolio/)
 - Files in repo - [docs/](./docs/)
 
 ## **Postman collections**
