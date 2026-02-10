@@ -23,7 +23,6 @@
     html, body { height: 100%; }
 
     body {
-
       margin: 0;
       font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
@@ -59,6 +58,8 @@
       padding: 0;
       list-style: none;
       color: var(--muted);
+      display: grid;
+      gap: 6px;
     }
     .highlights li::before {
       content: "- ";
@@ -81,11 +82,18 @@
       font-weight: 700;
       box-shadow: var(--shadow);
       white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .btn.secondary {
       background: transparent;
       color: var(--accent);
+    }
+
+    .btn.ghost {
+      background: rgba(255,255,255,.03);
     }
 
     .localnav {
@@ -105,8 +113,9 @@
     }
 
     section { margin-top: 40px; }
-    h2 { margin-bottom: 12px; font-size: 22px; }
-    p.muted { color: var(--muted); }
+    h2 { margin: 0 0 12px; font-size: 22px; }
+    p.muted { color: var(--muted); margin: 0 0 14px; }
+    .small { font-size: 14px; }
 
     /* Cards */
     .grid {
@@ -122,7 +131,11 @@
       padding: 16px;
       background: var(--card);
       box-shadow: var(--shadow);
+      color: var(--text);
     }
+
+    .card h3 { margin: 0 0 8px; font-size: 18px; }
+    .card p { margin: 0; color: var(--muted); }
 
     .tag {
       position: absolute;
@@ -153,13 +166,21 @@
       background: rgba(255,255,255,.03);
       font-weight: 700;
       font-size: 14px;
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
     }
+    .link:hover { text-decoration: none; background: rgba(255,255,255,.06); }
 
+    /* Tables */
     .tablewrap {
       margin-top: 10px;
       border: 1px solid var(--line);
       border-radius: 14px;
       overflow: auto;
+      box-shadow: var(--shadow);
     }
 
     table {
@@ -173,6 +194,7 @@
       padding: 10px 12px;
       border-bottom: 1px solid var(--line);
       text-align: left;
+      vertical-align: top;
     }
 
     thead th {
@@ -188,6 +210,25 @@
       border-radius: 999px;
     }
 
+    /* Dashboards */
+    .iframewrap {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: #0f1731;
+    }
+    .dashboard-frame {
+      width: 100%;
+      height: 820px;
+      border: 0;
+      display: block;
+      background: #0f1731;
+    }
+    @media (max-width: 640px) {
+      .dashboard-frame { height: 680px; }
+    }
+
     footer {
       margin-top: 40px;
       color: var(--muted);
@@ -197,17 +238,17 @@
 </head>
 
 <body>
-
 <div class="container">
 
   <header class="hero">
     <h1>QA Engineer - Manual, API, Backend and UI Testing</h1>
     <p class="subtitle">
       QA portfolio focused on API testing, backend validation and UI regression.
-      Below are real QA artifacts and API demos (no NDA data).
+      Below are QA artifacts, API demos and QA impact dashboards (no NDA data).
     </p>
 
     <ul class="highlights">
+      <li>QA impact dashboards - coverage growth, regression speedup, faster bug resolution</li>
       <li>API testing with Postman - chaining, validations, cleanup</li>
       <li>Backend testing - logs, data checks, reproducibility</li>
       <li>UI testing - core user flows, regression risks</li>
@@ -215,13 +256,15 @@
     </ul>
 
     <div class="actions">
-      <a class="btn" href="https://github.com/Aleksei-Eiskov/qa-portfolio-aleksei" target="_blank">Repository</a>
-      <a class="btn secondary" href="https://www.linkedin.com/in/aleksei-eiskov" target="_blank">LinkedIn</a>
-      <a class="btn" href="mailto:AlekseiEiskov@gmail.com">Email</a>
+      <a class="btn" href="https://github.com/Aleksei-Eiskov/qa-portfolio-aleksei" target="_blank" rel="noopener">Repository</a>
+      <a class="btn secondary" href="https://www.linkedin.com/in/aleksei-eiskov" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn ghost" href="mailto:AlekseiEiskov@gmail.com">Email</a>
+      <a class="btn" href="#dashboards">Dashboards</a>
     </div>
 
-    <nav class="localnav">
+    <nav class="localnav" aria-label="In page">
       <a class="chip" href="#start">Start here</a>
+      <a class="chip" href="#dashboards">Dashboards</a>
       <a class="chip" href="#docs">QA documents</a>
       <a class="chip" href="#api">API demo</a>
       <a class="chip" href="#e2e">E2E endpoints</a>
@@ -238,7 +281,7 @@
       <div class="card">
         <span class="tag">PDF</span>
         <h3>Regression checklist</h3>
-        <p>Risk-based regression coverage for key user flows.</p>
+        <p>Risk-based regression coverage for key user flows and typical breakpoints.</p>
         <div class="card-actions">
           <a class="link" href="./pdfs/Regression.pdf">Open PDF</a>
         </div>
@@ -247,7 +290,7 @@
       <div class="card">
         <span class="tag">PDF</span>
         <h3>Test cases</h3>
-        <p>Structured test cases with steps and expected results.</p>
+        <p>Structured test cases with preconditions, test data, steps and expected results.</p>
         <div class="card-actions">
           <a class="link" href="./pdfs/test-cases.pdf">Open PDF</a>
         </div>
@@ -256,21 +299,42 @@
       <div class="card">
         <span class="tag blue">Postman</span>
         <h3>API E2E flow</h3>
-        <p>End-to-end API scenario with chained requests.</p>
+        <p>End-to-end API scenario with request chaining and cleanup.</p>
         <div class="card-actions">
-          <a class="link" href="../postman/collections/21563877-86fc0407-cd06-4575-a376-6cb822943746.json">
-            Open collection
-          </a>
+          <a class="link" href="../postman/collections/21563877-86fc0407-cd06-4575-a376-6cb822943746.json">Open collection</a>
         </div>
       </div>
     </div>
   </section>
 
+  <section id="dashboards">
+    <h2>QA dashboards - mock data</h2>
+    <p class="muted">
+      Interactive charts that highlight QA impact: regression duration, defect resolution time and coverage trends.
+      Data is anonymized and based on mock examples (no NDA).
+    </p>
+
+    <div class="iframewrap">
+      <iframe
+        class="dashboard-frame"
+        src="https://aleksei-eiskov.github.io/AlekseiEiskov/"
+        title="QA Impact Dashboard - Mock data"
+        loading="lazy"
+        referrerpolicy="no-referrer"
+      ></iframe>
+    </div>
+
+    <p class="muted small" style="margin-top:10px">
+      Need fullscreen - <a href="https://aleksei-eiskov.github.io/AlekseiEiskov/" target="_blank" rel="noopener">open dashboards in a new tab</a>.
+    </p>
+  </section>
+
   <section id="docs">
     <h2>QA documents</h2>
+    <p class="muted">Concrete QA artifacts (no NDA): bug reports, test cases, regression planning and requirement mind maps.</p>
 
     <div class="grid">
-      <a class="card" href="./pdfs/bag-reports.pdf">Bug reports</a>
+      <a class="card" href="./pdfs/bug-reports.pdf">Bug reports</a>
       <a class="card" href="./pdfs/test-cases.pdf">Test cases</a>
       <a class="card" href="./pdfs/Regression.pdf">Regression checklist</a>
       <a class="card" href="./pdfs/Export%20list%20to%20CSV%20x_mind.pdf">XMind - export CSV</a>
@@ -281,23 +345,30 @@
   <section id="api">
     <h2>API demo - Car_store</h2>
     <p class="muted">
-      <a href="./car_store_collection_overview.md">E2E overview (Markdown)</a> |
+      Two collections: stable E2E flow and CRUD exploration.
+      Docs:
+      <a href="./car_store_collection_overview.md">E2E overview (Markdown)</a>
+      -
       <a href="./car_store_crud_overview.md">CRUD overview (Markdown)</a>
     </p>
   </section>
 
   <section id="e2e">
     <h2>E2E stable - endpoints</h2>
+    <p class="muted">A short chain that creates data, validates relations and cleans up after execution.</p>
+
     <div class="tablewrap">
       <table>
         <thead>
           <tr><th>Method</th><th>Path</th><th>Description</th></tr>
         </thead>
         <tbody>
-          <tr><td>POST</td><td><code>/brands</code></td><td>Create brand</td></tr>
-          <tr><td>POST</td><td><code>/cars</code></td><td>Create car</td></tr>
-          <tr><td>GET</td><td><code>/cars/{{carId}}</code></td><td>Get car</td></tr>
-          <tr><td>DELETE</td><td><code>/cars/{{carId}}</code></td><td>Delete car</td></tr>
+          <tr><td>POST</td><td><code>/brands</code></td><td>Create a brand - store <code>{{brandId}}</code> for chaining.</td></tr>
+          <tr><td>POST</td><td><code>/cars</code></td><td>Create a car linked to the brand - store <code>{{carId}}</code>.</td></tr>
+          <tr><td>PATCH</td><td><code>/cars/{{carId}}</code></td><td>Update a field (example: price) and validate response schema.</td></tr>
+          <tr><td>GET</td><td><code>/cars/{{carId}}?_expand=brand&amp;_embed=reviews</code></td><td>Validate relations and data integrity (expand + embed).</td></tr>
+          <tr><td>DELETE</td><td><code>/cars/{{carId}}</code></td><td>Cleanup - delete created car.</td></tr>
+          <tr><td>DELETE</td><td><code>/brands/{{brandId}}</code></td><td>Cleanup - delete created brand.</td></tr>
         </tbody>
       </table>
     </div>
@@ -305,15 +376,113 @@
 
   <section id="crud">
     <h2>CRUD endpoints</h2>
+    <p class="muted">CRUD checks plus list validations (filters, sorting, pagination) and basic search.</p>
+
     <div class="tablewrap">
       <table>
         <thead>
-          <tr><th>Method</th><th>Path</th><th>Description</th></tr>
+          <tr><th>Area</th><th>Method</th><th>Path</th><th>What is validated</th></tr>
         </thead>
         <tbody>
-          <tr><td>GET</td><td><code>/cars</code></td><td>List cars</td></tr>
-          <tr><td>POST</td><td><code>/cars</code></td><td>Create car</td></tr>
-          <tr><td>PATCH</td><td><code>/cars/{{carId}}</code></td><td>Update car</td></tr>
+          <tr>
+            <td>Health</td>
+            <td>GET</td>
+            <td><code>/health</code></td>
+            <td>Service is alive, returns expected status and headers.</td>
+          </tr>
+          <tr>
+            <td>Admin</td>
+            <td>POST</td>
+            <td><code>/reset</code></td>
+            <td>Database reset - stable baseline before test runs.</td>
+          </tr>
+
+          <tr>
+            <td>Cars</td>
+            <td>GET</td>
+            <td><code>/cars</code></td>
+            <td>List - basic schema and typical fields.</td>
+          </tr>
+          <tr>
+            <td>Cars</td>
+            <td>GET</td>
+            <td><code>/cars?brandId={{brandId}}&amp;price_gte=20000&amp;price_lte=40000</code></td>
+            <td>Filters - result set matches constraints (brandId and price range).</td>
+          </tr>
+          <tr>
+            <td>Cars</td>
+            <td>GET</td>
+            <td><code>/cars?_sort=price&amp;_order=asc&amp;_page=1&amp;_limit=3</code></td>
+            <td>Sorting and pagination - order is correct, page size is respected.</td>
+          </tr>
+          <tr>
+            <td>Cars</td>
+            <td>POST</td>
+            <td><code>/cars</code></td>
+            <td>Create - required fields and generated id validated.</td>
+          </tr>
+          <tr>
+            <td>Cars</td>
+            <td>GET</td>
+            <td><code>/cars/{{carId}}</code></td>
+            <td>Get by id - data matches created or updated entity.</td>
+          </tr>
+          <tr>
+            <td>Cars</td>
+            <td>PATCH</td>
+            <td><code>/cars/{{carId}}</code></td>
+            <td>Partial update - only updated fields change, others stay same.</td>
+          </tr>
+          <tr>
+            <td>Cars</td>
+            <td>PUT</td>
+            <td><code>/cars/{{carId}}</code></td>
+            <td>Replace - required fields enforced, missing fields behavior checked.</td>
+          </tr>
+          <tr>
+            <td>Cars</td>
+            <td>DELETE</td>
+            <td><code>/cars/{{carId}}</code></td>
+            <td>Delete - follow-up GET returns 404 or empty response.</td>
+          </tr>
+
+          <tr>
+            <td>Brands</td>
+            <td>GET</td>
+            <td><code>/brands</code></td>
+            <td>List brands - basic schema and expected fields.</td>
+          </tr>
+          <tr>
+            <td>Brands</td>
+            <td>POST</td>
+            <td><code>/brands</code></td>
+            <td>Create brand - store <code>{{brandId}}</code> for chained requests.</td>
+          </tr>
+          <tr>
+            <td>Brands</td>
+            <td>GET</td>
+            <td><code>/brands/{{brandId}}/cars</code></td>
+            <td>Relation endpoint - cars returned belong to the brand.</td>
+          </tr>
+          <tr>
+            <td>Brands</td>
+            <td>PATCH</td>
+            <td><code>/brands/{{brandId}}</code></td>
+            <td>Update brand - validates response and persistence.</td>
+          </tr>
+          <tr>
+            <td>Brands</td>
+            <td>DELETE</td>
+            <td><code>/brands/{{brandId}}</code></td>
+            <td>Cleanup - remove created brand after tests.</td>
+          </tr>
+
+          <tr>
+            <td>Search</td>
+            <td>GET</td>
+            <td><code>/cars?q=tesla</code></td>
+            <td>Free-text search - relevant hits returned.</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -323,12 +492,49 @@
     <h2>Project quick start - Car_store demo</h2>
     <p class="muted">
       Sources:
-      <a href="https://github.com/Aleksei-Eiskov/car_store" target="_blank">car_store repository</a>
+      <a href="https://github.com/Aleksei-Eiskov/car_store" target="_blank" rel="noopener">car_store repository</a>
+    </p>
+
+    <div class="tablewrap" aria-label="Quick start commands">
+      <table>
+        <thead>
+          <tr><th>Option</th><th>Commands</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Node</td>
+            <td>
+              <code>npm install</code>
+              <span style="color:var(--muted)"> then </span>
+              <code>npm start</code>
+            </td>
+            <td>Runs json-server demo locally</td>
+          </tr>
+          <tr>
+            <td>Docker</td>
+            <td>
+              <code>docker build -t car_store .</code>
+              <span style="color:var(--muted)"> then </span>
+              <code>docker run -p 3001:3001 car_store</code>
+            </td>
+            <td>Build image and run container</td>
+          </tr>
+          <tr>
+            <td>Docker Compose</td>
+            <td><code>docker compose up --build</code></td>
+            <td>Runs demo via compose</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="muted small" style="margin-top:12px">
+      Postman collections - import JSON, set the base URL, then run requests in order.
     </p>
   </section>
 
   <footer>
-    Contacts - <a href="mailto:AlekseiEiskov@gmail.com">AlekseiEiskov@gmail.com</a> - Germany
+    Contacts - <a href="mailto:AlekseiEiskov@gmail.com">AlekseiEiskov@gmail.com</a> - Lippstadt, Germany
   </footer>
 
 </div>
